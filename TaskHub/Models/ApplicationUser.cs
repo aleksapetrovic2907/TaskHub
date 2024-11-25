@@ -13,6 +13,7 @@ namespace TaskHub.Models
         [StringLength(255, ErrorMessage = "The last name must contain a maximum of 255 characters.")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        public ICollection<UserTask> UserTasks { get; set; }
         public string FullName => $"{LastName}, {FirstName}";
     }
 }
