@@ -10,6 +10,8 @@ namespace TaskHub.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime? DueAt { get; set; }
         public TaskStatus Status { get; set; }
+
+        public User User { get; set; }
         public Guid UserId { get; set; }
     }
 }
