@@ -1,17 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TaskHub.Domain.Entities;
 using Task = TaskHub.Domain.Entities.Task;
 
 namespace TaskHub.Infrastructure.Contexts
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<User, IdentityRole<Guid>, Guid>(options)
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // User entity configuration
-            modelBuilder.Entity<User>()
-                .HasKey(u => u.Id); // Primary key
-
+            // User entity configuration (optional, already managed by Identity)
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Tasks)
                 .WithOne(t => t.User)
@@ -26,10 +25,9 @@ namespace TaskHub.Infrastructure.Contexts
                 .Property(t => t.Status)
                 .IsRequired();
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder); // Always call the base method
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Task> Tasks { get; set; }
     }
 }
