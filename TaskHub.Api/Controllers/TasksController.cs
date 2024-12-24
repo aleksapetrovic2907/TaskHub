@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using TaskHub.Api.Models;
 using TaskHub.Application.Services;
 using TaskEntity = TaskHub.Domain.Entities.Task;
 
@@ -41,10 +42,21 @@ namespace TaskHub.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTask([FromBody] TaskEntity task)
+        public async Task<IActionResult> CreateTask([FromBody] CreateTaskDto createTaskDto)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var createdTask = await _taskService.CreateTaskAsync(userId, task);
+
+            var newTask = new TaskEntity
+            {
+                Title = createTaskDto.Title,
+                Description = createTaskDto.Description,
+                DueAt = createTaskDto.DueAt,
+                CreatedAt = DateTime.UtcNow,
+                Status = Domain.Enums.TaskStatus.Pending,
+                UserId = userId
+            };
+
+            var createdTask = await _taskService.CreateTaskAsync(userId, newTask);
             return CreatedAtAction(nameof(GetTaskById), new { id = createdTask.Id, createdTask });
         }
 
