@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskHub.Infrastructure.Contexts;
+using TaskEntity = TaskHub.Domain.Entities.Task;
 
 namespace TaskHub.Application.Services
 {
@@ -12,20 +13,20 @@ namespace TaskHub.Application.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Domain.Entities.Task>> GetAllTasksAsync(Guid userId)
+        public async Task<IEnumerable<TaskEntity>> GetAllTasksAsync(Guid userId)
         {
             return await _context.Tasks
                 .Where(t => t.UserId == userId)
                 .ToListAsync();
         }
 
-        public async Task<Domain.Entities.Task> GetTaskByIdAsync(Guid userId, Guid taskId)
+        public async Task<TaskEntity> GetTaskByIdAsync(Guid userId, Guid taskId)
         {
             return await _context.Tasks
                 .FirstOrDefaultAsync(t => t.UserId == userId && t.Id == taskId);
         }
 
-        public async Task<Domain.Entities.Task> CreateTaskAsync(Guid userId, Domain.Entities.Task task)
+        public async Task<TaskEntity> CreateTaskAsync(Guid userId, TaskEntity task)
         {
             task.UserId = userId;
             _context.Tasks.Add(task);
@@ -33,7 +34,7 @@ namespace TaskHub.Application.Services
             return task;
         }
 
-        public async Task<Domain.Entities.Task> UpdateTaskAsync(Guid userId, Guid taskId, Domain.Entities.Task task)
+        public async Task<TaskEntity> UpdateTaskAsync(Guid userId, Guid taskId, TaskEntity task)
         {
             var targetTask = await _context.Tasks
                 .FirstOrDefaultAsync(t => t.UserId == userId && t.Id == taskId) ?? throw new KeyNotFoundException("Task not found");
