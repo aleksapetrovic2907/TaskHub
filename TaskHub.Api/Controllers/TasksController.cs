@@ -19,6 +19,10 @@ namespace TaskHub.Api.Controllers
             _taskService = taskService;
         }
 
+        /// <summary>
+        /// Retrieves all tasks for the authenticated user.
+        /// </summary>
+        /// <returns>A list of tasks belonging to the user.</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -30,6 +34,11 @@ namespace TaskHub.Api.Controllers
             return Ok(tasks);
         }
 
+        /// <summary>
+        /// Retrieves a specific task for the authenticated user.
+        /// </summary>
+        /// <param name="id">The unique identifier of the task requested.</param>
+        /// <returns>The requested task.</returns>
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -48,7 +57,11 @@ namespace TaskHub.Api.Controllers
             return Ok(task);
         }
 
-        
+        /// <summary>
+        /// Creates a new task for the authenticated user.
+        /// </summary>
+        /// <param name="createTaskDto">The data for the new task.</param>
+        /// <returns>The created task.</returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -71,6 +84,12 @@ namespace TaskHub.Api.Controllers
             return CreatedAtAction(nameof(GetTaskById), new { id = createdTask.Id }, createdTask);
         }
 
+        /// <summary>
+        /// Updates a specific task for the authenticated user.
+        /// </summary>
+        /// <param name="id">The unique identifier of the task to be updated.</param>
+        /// <param name="updatedTaskDto">The data for the updated task.</param>
+        /// <returns>The updated task.</returns>
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -103,6 +122,14 @@ namespace TaskHub.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a specific task for the authenticated user.
+        /// </summary>
+        /// <param name="id">The unique identifier of the task to be deleted.</param>
+        /// <returns>
+        /// A 204 No Content response if the task is successfully deleted, 
+        /// or a 404 Not Found response if the task does not exist or does not belong to the user.
+        /// </returns>
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
