@@ -61,14 +61,22 @@ namespace TaskHub.Api.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateTask(Guid id, [FromBody] TaskEntity updatedTask)
+        public async Task<IActionResult> UpdateTask(Guid id, [FromBody] UpdateTaskDto updatedTaskDto)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             try
             {
-                var targetTask = await _taskService.UpdateTaskAsync(userId, id, updatedTask);
-                return Ok(targetTask);
+                var updatedTask = new TaskEntity
+                {
+                    Title = updatedTaskDto.Title,
+                    Description = updatedTaskDto.Description,
+                    DueAt = updatedTaskDto.DueAt,
+                    Status = updatedTaskDto.Status,
+                };
+
+                var result = await _taskService.UpdateTaskAsync(userId, id, updatedTask);
+                return Ok(result);
             }
             catch (KeyNotFoundException)
             {
