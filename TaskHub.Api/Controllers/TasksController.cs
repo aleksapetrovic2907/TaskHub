@@ -57,7 +57,7 @@ namespace TaskHub.Api.Controllers
             };
 
             var createdTask = await _taskService.CreateTaskAsync(userId, newTask);
-            return CreatedAtAction(nameof(GetTaskById), new { id = createdTask.Id, createdTask });
+            return CreatedAtAction(nameof(GetTaskById), new { id = createdTask.Id }, createdTask);
         }
 
         [HttpPut("{id:guid}")]
