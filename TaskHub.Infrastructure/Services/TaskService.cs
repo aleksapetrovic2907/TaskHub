@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TaskHub.Application.Services;
 using TaskHub.Infrastructure.Contexts;
 using TaskEntity = TaskHub.Domain.Entities.Task;
 
-namespace TaskHub.Application.Services
+namespace TaskHub.Infrastructure.Services
 {
     public class TaskService : ITaskService
     {
