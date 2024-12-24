@@ -67,15 +67,19 @@ namespace TaskHub.Api.Controllers
 
             try
             {
-                var updatedTask = new TaskEntity
-                {
-                    Title = updatedTaskDto.Title,
-                    Description = updatedTaskDto.Description,
-                    DueAt = updatedTaskDto.DueAt,
-                    Status = updatedTaskDto.Status,
-                };
+                var targetTask = await _taskService.GetTaskByIdAsync(userId, id);
 
-                var result = await _taskService.UpdateTaskAsync(userId, id, updatedTask);
+                if (targetTask == null)
+                {
+                    return NotFound();
+                }
+
+                targetTask.Title = updatedTaskDto.Title;
+                targetTask.Description = updatedTaskDto.Description;
+                targetTask.DueAt = updatedTaskDto.DueAt;
+                targetTask.Status = updatedTaskDto.Status;
+
+                var result = await _taskService.UpdateTaskAsync(userId, id, targetTask);
                 return Ok(result);
             }
             catch (KeyNotFoundException)
