@@ -20,6 +20,9 @@ namespace TaskHub.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("application/json")]
         public async Task<IActionResult> GetAllTasks()
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -28,6 +31,10 @@ namespace TaskHub.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("application/json")]
         public async Task<IActionResult> GetTaskById(Guid id)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -41,7 +48,11 @@ namespace TaskHub.Api.Controllers
             return Ok(task);
         }
 
+        
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("application/json")]
         public async Task<IActionResult> CreateTask([FromBody] CreateTaskDto createTaskDto)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -61,6 +72,10 @@ namespace TaskHub.Api.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Produces("application/json")]
         public async Task<IActionResult> UpdateTask(Guid id, [FromBody] UpdateTaskDto updatedTaskDto)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -89,6 +104,10 @@ namespace TaskHub.Api.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Produces("application/json")]
         public async Task<IActionResult> DeleteTask(Guid id)
         {
             var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
