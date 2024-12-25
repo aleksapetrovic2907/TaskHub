@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskHub.Domain", "TaskHub.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskHub.Infrastructure", "TaskHub.Infrastructure\TaskHub.Infrastructure.csproj", "{75CAC6BD-7184-4E8A-9E50-2025436051F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskHub.Presentation", "TaskHub.Presentation\TaskHub.Presentation.csproj", "{B34F40A8-26B2-4C68-B396-2F89060E9C63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{75CAC6BD-7184-4E8A-9E50-2025436051F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75CAC6BD-7184-4E8A-9E50-2025436051F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75CAC6BD-7184-4E8A-9E50-2025436051F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B34F40A8-26B2-4C68-B396-2F89060E9C63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B34F40A8-26B2-4C68-B396-2F89060E9C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B34F40A8-26B2-4C68-B396-2F89060E9C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B34F40A8-26B2-4C68-B396-2F89060E9C63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
